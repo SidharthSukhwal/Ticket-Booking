@@ -8,6 +8,8 @@ import TicketDetails from './Components/TicketDetails';
 import BookTicket from './Components/BookTicket';
 import About from './Components/About';
 import NoteState from './Context/notes/NotesState';
+import UserProfile from './Components/UserProfile';
+import AllUsers from './Components/AllUsers';
 
 
 // <Route path="/Home" element={<Home />} />
@@ -32,6 +34,10 @@ export default function App() {
               path="/ticketDetails" element={<TicketDetails />} />
             <Route exact
               path="/About" element={<About />} />
+            <Route exact
+              path="/UserProfile" element={<UserProfile />} />
+            <Route exact
+              path="/AllUsers" element={<AllUsers />} />
 
           </Routes>
         </BrowserRouter>

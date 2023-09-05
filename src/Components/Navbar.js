@@ -1,21 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Spaces } from './comonfunc'
+import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import "./navbar.css"
 
 export default function Navbar() {
 
-
+const navigate = useNavigate()
 
   const logout = () => {
+    toast.success("Logout Successfully")
     sessionStorage.clear()
-
+    navigate("/login")
   }
 
 
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary" >
         <div className="main">
         </div>
         <div className="container-fluid ">
@@ -38,6 +42,12 @@ export default function Navbar() {
                 <Link className="nav-link" to="/TicketDetails">Ticket Details</Link>
               </li>
               <li className="nav-item" style={{ paddingInline: "20px" }}>
+                <Link className="nav-link" to="/UserProfile">User Profile </Link>
+              </li>
+              <li className="nav-item" style={{ paddingInline: "20px" }}>
+                <Link className="nav-link" to="/AllUsers">All  Users </Link>
+              </li>
+              <li className="nav-item" style={{ paddingInline: "20px" }}>
                 <Link className="nav-link" to="/About">About</Link>
               </li>
 
@@ -50,6 +60,7 @@ export default function Navbar() {
           </div>
         </div>
         </nav>
+        <ToastContainer />
     </>
   )
 }

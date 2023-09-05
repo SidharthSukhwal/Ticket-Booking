@@ -1,22 +1,32 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from './Footer';
 
 
 export default function BookTicket() {
 
+    useEffect(()=>{
+        if(sessionStorage.length < 1){
+          toast.warn("Please Login")
+        }
+      })
 
     let navigate = useNavigate()
     let tickets = localStorage.getItem('tickets') ? JSON.parse(localStorage.getItem('tickets')) : [];
     let users = sessionStorage.getItem('curUser');
-    console.log(users, "curUsercurUsercurUsercurUsercurUsercurUsercurUser")
+    
     let userNew = JSON.parse(users);
 
     const [user, setUser] = useState(userNew);
     const [members, setMembers] = useState();
     const [place, setPlace] = useState();
-    const [fare, setFare] = useState()
-    const modelOpen1= useRef(null);
+   
+    const modelOpen1 = useRef(null);
+
+  
 
     let ticketDetail = {};
 
@@ -31,20 +41,12 @@ export default function BookTicket() {
         { "Lake Pichola": 550 }
     ]
 
-    const handleClick = () => {
-        modelOpen1.current.click();
-     }
-     
-
 
     placefare.map((e) => {
 
         if (Object.keys(e).includes(place)) {
             ticketDetail.fare = Object.values(e) * members
-
         }
-
-
     })
 
 
@@ -59,19 +61,34 @@ export default function BookTicket() {
 
         tickets.push({ ...ticketDetail })
         localStorage.setItem('tickets', JSON.stringify(tickets))
-        navigate("/TicketDetails")
+        // navigate("/TicketDetails")
+        toast.success("Ticket Booked Successfully")
     }
+
+    // let something = (function() {
+    //     let executed = false;
+    //     return function() {
+    //         if (!executed) {
+    //             executed = true;
+    //            toast.success("User Login Successfully")
+    //         }
+    //     };
+    // })();
+    
+   
 
 
     return (
         <>
             <Navbar />
+            <div>
+            </div>
             <h1 className='text-center mt-4 text-white'>Ticket Booking</h1><br />
 
             {
                 sessionStorage.length > 0 ?
                     <div className='container-fluid' >
-                        
+
 
 
                         <div className='w-50 mt-5 m-auto'>
@@ -115,21 +132,23 @@ export default function BookTicket() {
                         <div className='d-flex justify-content-center'>
                             <button className='btn btn-primary btn-lg mt-5 ' onClick={() => saveTicket()}>Submit</button>
                         </div>
+                        <ToastContainer />
                     </div>
                     :
                     <>
-                    <div className="card mx-auto mt-5 my-auto" style={{width: "50%"}}>
-                    <img className="card-img-top" src="/img/jalmahal.jpg" alt="Card image" width="100" height="300" />
-                      <div className="card-body">
-                        <h4 className="card-title mx-auto">Please Login First</h4>
-                        
-                        <a href="/Login" className="btn btn-primary mx-auto ">Login-In</a>
-                      </div>
-                  </div>
+                        <div className="card mx-auto mt-5 my-auto" style={{ width: "50%" }}>
+                            <img className="card-img-top" src="/img/jalmahal.jpg" alt="Card image" width="100" height="300" />
+                            <div className="card-body">
+                                <h4 className="card-title mx-auto">Please Login First</h4>
+
+                                <a href="/Login" className="btn btn-primary mx-auto ">Login-In</a>
+                            </div>
+                        </div>
                     </>
 
 
             }
+            <Footer />
         </>
     )
 }

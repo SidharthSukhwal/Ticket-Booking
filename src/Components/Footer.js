@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function Footer() {
     return (
         <div>
-        <footer className="text-center text-lg-start bg-light text-muted">
+        <footer className="text-center text-lg-start bg-light text-muted" >
           
         
           <section className="">
@@ -31,6 +31,9 @@ export default function Footer() {
                   <p>
                     <Link to="/ticketDetails" className="text-reset">Details</Link>
                   </p>
+                  <p>
+                    <Link to="/About" className="text-reset">About</Link>
+                  </p>
                   
                 </div>
         
@@ -39,10 +42,13 @@ export default function Footer() {
                     Useful links
                   </h6>
                   <p>
-                    <Link to="/" className="text-reset">Pricing</Link>
+                    <Link to="" className="text-reset">Pricing</Link>
                   </p>
                   <p>
-                    <Link to="/" className="text-reset">Settings</Link>
+                  <Link to="/UserProfile" className="text-reset">User Profile</Link>
+                  </p>
+                  <p>
+                    <Link to="/AllUsers" className="text-reset">All Users</Link>
                   </p>
                   
                 </div>

@@ -4,7 +4,9 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import noteContext from '../Context/notes/NoteContext'
 import SimpleMap from './Location'
-
+import QRCode from "qrcode.react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const About = () => {
@@ -15,13 +17,16 @@ const About = () => {
     const [subject,setSubject] = useState('')
     const [message,setMessage] = useState('')
     
-    
+  
     const a = useContext(noteContext)
     useEffect(() => {
         a.update()
+        if(sessionStorage.length < 1){
+          toast.warn("Please Login")
+        }
     }, [])
 
-    
+  
     
     let contactForm = {
 
@@ -37,6 +42,9 @@ const About = () => {
     const Submit = () =>{
         localStorage.setItem("ContactForm", JSON.stringify(ConnectForm))
     }
+
+    
+   
 
     return (
         <div>
@@ -106,7 +114,7 @@ const About = () => {
                                             </div>
 
 
-                                            <small className="text-muted">2010</small>
+                                            <small className="text-muted">2012</small>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +130,7 @@ const About = () => {
                                                     View
                                                 </button>
                                             </div>
-                                            <small className="text-muted">2010</small>
+                                            <small className="text-muted">2014</small>
                                         </div>
                                     </div>
                                 </div>
@@ -201,8 +209,11 @@ const About = () => {
                                                         <p>contact@ticketbook.com</p>
                                                     </li>
                                                 </ul>
+                                                <div className="barcode" >
+                                                <QRCode
+                                                value="https://sidharth-ticket-booking.netlify.app/"/>
+                                                </div>
                                             </div>
-
                                         </div>
 
                                     </section>

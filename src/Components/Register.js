@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';;
 
 export default function Register() {
   const navigate = useNavigate()
@@ -32,10 +33,10 @@ console.log(userData)
       localStorage.setItem("users", JSON.stringify(users))
 
     } else {
-      alert("The details are not correct")
+      toast.error("The details are not correct")
     }
     if (localStorage.length > 0) {
-      alert("User Registered Successfully")
+      toast.success("User Registered Successfully")
       navigate("/Login")
     }
   }

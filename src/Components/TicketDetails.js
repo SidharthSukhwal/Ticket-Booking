@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { useEffect, useId } from 'react'
 import Navbar from './Navbar'
 import html2canvas from 'html2canvas';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from './Footer';
 
 
 const TicketDetails = () => {
+
+  let id = useId()
   let ticket = localStorage.getItem('tickets');
   let ticketDetail = JSON.parse(ticket)
   let details = [ticketDetail]
-  console.log(details[0]?.length,"kjgscljkhgabskghpdikufhv;kn")
+
+  useEffect(()=>{
+    if(sessionStorage.length < 1){
+      toast.warn("Please Login")
+    }
+  })
+
   let CancelTicket = () => {
     localStorage.removeItem("tickets")
-
+    toast.success("Tickets Canceled")
   }
 
   const handleDownloadImage = async () => {
@@ -25,7 +36,11 @@ const TicketDetails = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    toast.success("Ticket is Downloaded")
   };
+
+
 
   return (
     <div>
@@ -36,8 +51,8 @@ const TicketDetails = () => {
         {
           sessionStorage.length > 0 && details[0]?.length  ? details[0]?.map((ticket) => (
         <>
-              <div className="card" style={{ width: "18rem" }}>
-                <div className="card-body" id='print'>
+              <div className="card"  style={{ width: "18rem" }}>
+                <div className="card-body" id='print' >
                   <h5 className="card-title">Destination : {ticket?.place}</h5>
                   <h5 className="card-title">Persons : {ticket?.members}</h5>
                   <h5 className="card-title">Total Fare : {ticket?.fare}</h5>
@@ -51,8 +66,10 @@ const TicketDetails = () => {
                     <option value="5">5.Throwing objects inside or outside of the bus is not permitted.</option>
                   </select>
                   <br />
-                  <a onClick={handleDownloadImage} className="card-link">Download Ticket </a>  <button onClick={CancelTicket} className="btn btn-secondary btn-sm" style={{ marginInline: "15px" }}>Cancel Ticket</button>
                   
+                  </div>
+                  <div className="buttons m-auto mt-0">
+                  <a onClick={handleDownloadImage} className="card-link">Download Ticket </a>  <button onClick={CancelTicket} className="btn btn-secondary btn-sm" style={{ marginInline: "15px" }}>Cancel Ticket</button>
                   </div>
                   </div>
                   <br />
@@ -70,6 +87,8 @@ const TicketDetails = () => {
             </div>
           }
           </div>
+          <ToastContainer />
+          <Footer />
     </div>
   )
 }
